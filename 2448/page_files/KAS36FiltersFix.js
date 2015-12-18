@@ -48,12 +48,11 @@ var constructPredicate = function(filters) {
     };
 };
 
-function filter(f, e) {
+function filter(f, el) {
     var filters = parseFilters(f);
 
-    var $e = $(e);
     // Dates from the element
-    var dates = ($e.text().toLowerCase().match(weekdayRegex) || [])
+    var dates = (el.text().toLowerCase().match(weekdayRegex) || [])
         .reduce(function(p,c){(p.indexOf(c)<0&&p.push(c));return p},[]); /* Remove duplicates. http://stackoverflow.com/a/17903018 */
     
     // If a weekday filter is set and the element contains one of the weekdays (or no weekdays at all), continue.
@@ -67,7 +66,7 @@ function filter(f, e) {
 
     // If a different filter is set, just test for the class.
     var filterPred = constructPredicate(filters);
-    var cl = filterPred($e);
+    var cl = filterPred(el);
 
     //  < has no weekday filter applied >
     if (f.reduce(function(p,c){(c.match(weekdayRegex)||p.push(c));return p;},[]).length && !cl) return false;
@@ -93,17 +92,17 @@ applyFilters = function() {
     filters.push(e.value);
   })
   jQuery('#centerPanel .tabbed.' + sTabId).css('display', '').filter('.tile').each(function() {
-    var oTile = this;
+    var oTile = $(this);
     var oCtl = jQuery(this).find('select,input[type="checkbox"],input[type="hidden"]')[0];
 
     if (oCtl) { // We have a control
-      if (filter(filters, oTile)) $(oTile).show();
+      if (filter(filters, oTile)) oTile.show();
       else $(oTile).hide();
 
       //if($PLI(oCtl).val == 0) { // Hide only empty ones
       if (sFilterText != '') { // Free Text search available
-        if (jQuery(oTile).text().toUpperCase().indexOf(sFilterText) == -1) {
-          jQuery(oTile).hide();
+        if (oTile.text().toUpperCase().indexOf(sFilterText) == -1) {
+          oTile.hide();
           return true; // Skip Filters.each and carry on with the Tiles.each
         }
       }

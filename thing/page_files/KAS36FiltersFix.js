@@ -5,7 +5,52 @@
 // 4. Filter remaining items by text.
 
 var weekdayRegex = /(monday|tuesday|wednesday|thursday|friday|saturday|sunday)(?!\s+late)/gi
+
+var filterFields = ["tab", "category", "option"];
+
+var parseFilters = function(filters) {
+    return filters.map(function(filter) {
+        //filter_0_2_0
+        return filter.replace("filter_", '').split('_').map(function(filter, i) {
+            return [filterFields[i], filter];
+        }).reduce(function(parsed, tuple) {
+            parsed[tuple[0]] = tuple[1];
+            return parsed;
+        }, { raw: filter });
+    });
+};
+
+var constructPredicate = function(filters) {
+    //filter out date filters
+    var classFilters = filters.filter(function(filter) {
+        return !filter.raw.match(weekdayRegex);
+    });
+
+    //group by category
+    var groupObj = classFilters.reduce(function(out, filter) {
+        //init category
+        if(!out[filter.category]) out[filter.category] = [];
+        
+        out[filter.category].push(filter);
+        return out;
+    }, {});
+
+    var filterGroups = Object.keys(groupObj).map(function(key) {
+        return groupObj[key];
+    });
+
+    return function(el) {
+        return filterGroups.every(function(group) {
+            return group.some(function(filter) {
+                return el.hasClass(filter.raw);
+            });
+        });
+    };
+};
+
 function filter(f, e) {
+    var filters = parseFilters(f);
+
     var $e = $(e);
     // Dates from the element
     var dates = ($e.text().toLowerCase().match(weekdayRegex) || [])
@@ -21,8 +66,9 @@ function filter(f, e) {
     else if (wd) return true;
 
     // If a different filter is set, just test for the class.
-    var cl = false;
-    for (var i = 0; i < f.length; i++) if (!f[i].match(weekdayRegex) && $e.hasClass(f[i])) cl = true;
+    var filterPred = constructPredicate(filters);
+    var cl = filterPred($e);
+
     //  < has no weekday filter applied >
     if (f.reduce(function(p,c){(c.match(weekdayRegex)||p.push(c));return p;},[]).length && !cl) return false;
     return true;

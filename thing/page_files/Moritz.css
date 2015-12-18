@@ -1,0 +1,191 @@
+/* Modern input elements */
+input, select, .chosen-choices, button {
+  background: #f8f8f8;
+  border: 1px solid #888;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 12px !important;
+  outline: none !important;
+}
+#splashscreen {
+  z-index: 10000000 !important;
+}
+input[type=button], input[type=submit], input[type=reset], button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  background-image: -moz-linear-gradient(top, #FFF, #CCC);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFF), color-stop(1, #CCC));
+  background-image: -webkit-linear-gradient(top, #FFF 0%, #CCC 100%);
+  background: linear-gradient(top, #FFF, #CCC);
+  border: 1px solid #888;
+  box-sizing: border-box; -moz-box-sizing: border-box;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 12px !important;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 2px 5px !important;
+  min-width: 5em !important;
+}
+.nav { font-size: 12px !important; }
+[style^="background: yellow"] { /* Not yet filled out. Pretty hacky and the JavaScript should not change! */
+  background: #fff !important;
+  border: 1px solid #d21;
+}
+[style^="background: rgb(216, 255, 255)"] { background: #fff !important; }
+div.tile { border-radius: 3px; border: 1px solid #888; box-shadow: none; }
+#AddressBlock\.LookupPostCode\.Button .field { text-align: right !important; margin-top: -3px; }
+#LookupPostCode { border-bottom-right-radius: 0; }
+#AddressBlock\.LookupPostCode\.Button .field input { border-top-left-radius: 0; border-top-right-radius: 0; }
+#PAFLookupMessage { position: absolute; left: 0; top: 110%; right: 120px; font-size: 12px; }
+#AddressBlock\.LookupPostCode\.FormRow .field { position: relative; }
+div.tile select[id^="PriceList."] { width: 50px !important; border: inherit; padding: 2px; }
+div.tile[id^="PriceList."] { margin-top: 1em; margin-bottom: 0; }
+/*div.tile img { width: calc(100% + 8px * 2); margin-top: -8px; margin-left: -8px; }*/
+.price { box-shadow: none !important; }
+.chosen-choices { background-image: none !important; }
+#NotingMatch { padding-top: 15px; }
+
+/* Navigation bar */
+@media screen and (min-width:640px) {
+  #navigationTags:before {
+    content: "";
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100000;
+    height: 44px;
+    background: #eee;
+    border-top: 1px solid #888;
+  }
+  .nav.prev {
+    position: fixed;
+    bottom: 10px; right: 50%; right: calc(50% + 5px);
+    z-index: 100001;
+  }
+  .nav.next {
+    position: fixed;
+    bottom: 10px; left: 50%; left: calc(50% + 5px);
+    z-index: 100001;
+  }
+  #centerPanel, #navigationTags { margin-bottom: 45px; }
+}
+#SubmitTile { display: none; }
+/* Normalize borders */
+#navigationTags { z-index: 1000000; padding-top: 0 !important; margin-top: 96px !important; overflow-x: visible !important; overflow-y: visible !important; }
+.nav.tabs .tab[for=tab0] { margin-top: 0 !important; display: block; position: relative; }
+.nav.tabs .tab[for=tab0]:after {
+  content: "";
+  position: absolute; top: -1px; left: 100%; right: -100vw;
+  height: 1px; background: #888;
+  z-index: 1000000;
+  pointer-events: none;
+}
+/* Dynamic width */
+input[type=text], select, .chosen-container {
+  width: 100% !important; box-sizing: border-box; -moz-box-sizing: border-box;
+}
+#centerPanel { margin-left: 150px !important; display: flex; }
+@media screen and (max-width:639px) {
+  #centerPanel { flex-direction: column; margin-left: 0 !important }
+  #filtersPanel { width: auto; max-width: 100%; }
+}
+#filtersPanel {
+  left: 0 !important; position: relative;
+  max-width: initial !important;
+  border-right: 1px solid #C0C0C0;
+  border-bottom: 1px solid #C0C0C0;
+  border-bottom-right-radius: 3px;
+}
+#filtersPanel>div { width: 30%; max-width: 350px; min-width: 150px; border: none; vertical-align: top; padding-bottom: 0; padding-top: 15px; }
+#filtersPanel>div:nth-child(2), #filtersPanel>div:nth-child(4) { margin-bottom: 15px; }
+@media screen and (max-width:639px) {
+  #filtersPanel {
+    border-right: none;
+    border-bottom-right-radius: 0;
+  }
+  #filtersPanel>div { width: 50%; width: calc(50% - 8px); box-sizing: border-box; -moz-box-sizing: border-box; min-width: 0; }
+}
+/* Label above textbox */
+.row { display: flex; } .row>* { display: block; }
+.caption { width: 250px; }
+.field { width: auto !important; flex-grow: 1; }
+@media screen and (max-width:639px) {
+  .form table, .form tr, .form td { display: block; width: auto !important; text-align: left !important; }
+  .caption { min-width: 0; }
+  .form .caption, .form .validation { display: inline-block; }
+  #Analysis\.3\.FormRow .field td, #Analysis\.4\.FormRow .field td, #Analysis\.5\.FormRow .field td, #Analysis\.6\.FormRow .field td, #Analysis\.70\.FormRow .field td, #Analysis\.8\.FormRow .field td { display: inline-block; }
+  #AddressBlock\.LookupPostCode\.Button .caption, #AddressBlock\.LookupPostCode\.Button .validation,
+  #AddressBlock\.StreetLine2\.FormRow .caption, #AddressBlock\.StreetLine2\.FormRow .validation,
+  #AddressBlock\.StreetLine3\.FormRow .caption, #AddressBlock\.StreetLine3\.FormRow .validation,
+  #Other\.12\.FormRow .validation { display: none; }
+  #Tab9 .row {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  #Tab9 .row .validation { display: none; }
+  #Tab9 .row .caption { color: transparent; }
+  #Tab9 .row .caption small { color: #000; }
+  #Tab9 .row .field { flex-grow: 0; }
+}
+.form tr { margin-bottom: 10px; vertical-align: middle; }
+.form .caption, .form .validation, .form .field { vertical-align: middle; }
+#AddressBlock\.LookupPostCode\.FormRow, #AddressBlock\.StreetLine1\.FormRow, #AddressBlock\.StreetLine2\.FormRow { margin-bottom: 0; }
+/* Inactive tabs */
+.nav.tabs .tab.inactive, .nav.progress .tab.inactive { opacity: 0.4; pointer-events: none; }
+
+#dialogueShade { z-index: 1000000; }
+#dialogueCount { width: 50px !important; padding: 2px; }
+#dialogueOK { margin-left: 0; }
+
+/* Different fixes and additions */
+.event-handler {
+  width: 100%;
+  border: none;
+  background: #e0e0e0;
+  box-sizing: border-box; -moz-box-sizing: border-box;
+  margin: 15px;
+  padding: 15px;
+  width: auto;
+  border-radius: 3px;
+}
+#filters-fix { flex-grow: 1; }
+a { color: #24A3B5; }
+ul { padding-left: 1em; }
+div.tile.tab1 {
+  max-width: 100%;
+  margin: 1em; margin-right: 0;
+}
+div.tile.tab2 {
+
+  max-width: 100%;
+}
+form > div.tabbed:not(.tile) { padding-right: 0; }
+@media screen and (max-width:639px) {
+  div.tile {
+    width: auto !important;
+    max-width: 100% !important;
+    display: block;
+  }
+  div.tile img {
+    float: left;
+    width: 40%;
+    margin-right: 10px;
+  }
+}
+.basket div.tile {
+  width: auto !important;
+}
+
+@media screen and (max-width: 639px) { 
+	.landscape-only { display: none !important; } 
+}
+@media screen and (min-width: 640px) { 
+.portrait-only { display: none !important; } 
+}
+
+
+
+

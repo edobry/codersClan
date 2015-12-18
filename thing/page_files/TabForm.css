@@ -1,0 +1,681 @@
+html,body {
+	margin:0;
+	padding:0;
+	border: none;
+	background-color: #FFF;
+	box-sizing: border-box;
+}
+body {overflow-y: auto;}
+
+.nav {font-size:80%; vertical-align:top; cursor:default;}
+.portrait .nav.prev {float:left; padding:.4em .4em .4em 1.5em; background-image:url(img/prev.png); background-repeat: no-repeat; background-size: contain;}
+.portrait .nav.next {float:right; padding:.4em 1.5em .4em .4em; background-image:url(img/next.png); background-repeat: no-repeat; background-size: contain; background-position: 100%;}
+.portrait .nav.prev.disabled {background-image:url(img/prev_g.png); color:grey;}
+.portrait .nav.next.disabled {background-image:url(img/next_g.png); color:grey;}
+.portrait .nav.progress {text-align:center;}
+.portrait .nav.progress label {display:inline-block; padding:0 .3em; width:1.5em;}
+.portrait .nav.progress label div {display:block; height:.8em; width:.8em; border-radius:50%; border:.4em solid white; background-color:grey;}
+.portrait .nav.progress label.active div {border:.4em solid grey;}
+#tabTitle {background-color:white; font-size:120%; text-align:center; color:black;}
+
+
+div#navigationTags {
+	position:fixed;
+    overflow-x: hidden;
+	overflow-y: auto;
+	left:0;
+	top:0;
+	box-shadow: inset -5px 0px 10px -5px rgba(0,0,0,1);	
+    text-align: center;
+	color:black;
+	margin:0;
+	padding:0;
+	padding-bottom: 100%;
+}
+.landscape .nav.prev {display:inline-block; margin-bottom:.5em;}
+.landscape .nav.next {display:inline-block; margin-top:.5em;}
+.landscape .nav.disabled {color:grey;}
+
+
+.landscape .nav.prev,.landscape .nav.next {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+
+	background-image: -moz-linear-gradient(top, #FFF, #CCC);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFF), color-stop(1, #CCC));
+	background-image: -webkit-linear-gradient(top, #FFF 0%, #CCC 100%);
+	background: linear-gradient(top, #FFF, #CCC);
+
+	border:solid 1px #888;
+	border-radius: 3px;
+	text-align:center;
+	font-weight:bold;
+	cursor: pointer;
+	cursor: hand;
+	padding: 2px 5px;
+	margin: 2px;
+	min-width: 5em;
+}
+.landscape .nav.prev:hover:not(.disabled),.landscape .nav.next:hover:not(.disabled) {
+	border:solid 1px #000;
+
+	background-image: -moz-linear-gradient(top, #FFF, #BBB);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFF), color-stop(1, #BBB));
+	background-image: -webkit-linear-gradient(top, #FFF 0%, #BBB 100%);
+	background: linear-gradient(top, #FFF, #BBB);
+}
+
+.landscape .nav.tabs label.tab {
+	display: block;
+	text-align: left;
+	padding: .5em 1em;
+	margin: 1px 0 1px .5em;
+	border-radius: .5em 0 0 .5em;
+	border:solid 1px #888;
+	border-right: none;
+	font-weight:bold;
+	color:#666;
+
+	background-image: -moz-linear-gradient(top, #FFF, #CCC);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFF), color-stop(1, #CCC));
+	background-image: -webkit-linear-gradient(top, #FFF 0%, #CCC 100%);
+	background: linear-gradient(top, #FFF, #CCC);
+
+	/*background: #cccccc url('/Templates/TabForm/bg_glass.png') 50% 50% repeat-x;*/
+	box-shadow: inset -5px 0px 10px -5px rgba(0,0,0,1);	
+
+	cursor: pointer;
+	cursor: hand;
+}
+.landscape .nav.tabs label.tab:hover {
+	background-image: -moz-linear-gradient(top, #FFF, #BBB);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFF), color-stop(1, #BBB));
+	background-image: -webkit-linear-gradient(top, #FFF 0%, #BBB 100%);
+	background: linear-gradient(top, #FFF, #BBB);
+}
+.landscape .nav.tabs label.tab.active {
+	border-color:grey;
+	background: #FFF;
+	color:#000;
+	box-shadow: none;
+}
+
+div.header {
+	position: fixed;
+	z-index: 100;
+	height: auto;
+
+	width: 100%;
+	overflow: visible;
+}
+div.header img {
+	display:block;
+	margin-left:auto;
+	margin-right: auto;
+	width:auto;
+	height: auto;
+	max-width:100%;
+	max-height:5em;
+	text-align:center;
+	margin-bottom:1em;
+}
+
+label.topBasket {
+	float:right;
+	font-weight:bold;
+	color:#AAA;
+	margin-right: 1em;
+    margin-top: .5em;
+
+	cursor: pointer;
+	cursor: hand;
+}
+/*label.topBasket:hover {}*/
+label.topBasket span.total {
+	margin:0;
+}
+label.topBasket img {
+	display:block;
+}
+
+
+span.total{
+	background-color:white;
+	color:black;
+	border-radius: .25em;
+	box-shadow: 0 0 .1em .1em #FFF;
+	transition: box-shadow .5s ease-in-out;
+	margin-left: 1em;
+}
+/* Pulse once animation */
+span.total.changed {
+	box-shadow: 0 0 .5em 1em #FFF;
+	transition: none;
+}
+/* Pulse once animation */
+
+div.footer {
+	position: fixed;
+	bottom: 0;
+	height: auto;
+	width: 100%;
+	overflow: hidden;
+	z-index: 100;
+
+	background-color: #EEE;
+	text-align:right;
+	border-top: 1px solid grey;
+	
+	/*font-family:sans-serif;*/
+}
+input#tabPrev,input#tabBack {
+	float:left;
+	/*left:0;*/
+    /*box-shadow: 5px 0px 10px 5px rgb(255, 255, 255);*/
+}
+input#tabNext {
+	/*right:0;*/
+    /*box-shadow: -5px 0px 10px 5px rgb(255, 255, 255);*/
+}
+input#tabSubmit{
+	font-weight: bold;
+    /*float: right;*/
+	/*
+    margin: 1em;
+    font-size: 125%;
+    padding: .5em 1em;
+	*/
+}
+
+div.footer input {
+	margin: 1em 1.5em;
+	min-width:8em;
+	font-size: 100%;
+	
+}
+div.footer a {
+	color:#2396C8;
+}
+span.copyright {
+	position: absolute;
+	right:0;
+	bottom:0;
+	z-index:-5;
+	color:#888;
+	font-size:80%;
+	padding:.2em;
+	text-align:right;
+}
+
+div.content {
+	padding-top: 15em; /* Default */
+	padding-bottom: 2em; /* Default */
+	position: relative;
+	color:#000;
+}
+
+.filterLabel {display:block;}
+.portrait div.filters {
+	position: relative;
+}
+div.filters>div {padding: 0 1em 1em 1em;}
+/*div.filters>div.searchBox {display:none!important;}*/
+
+/*div.filters div.filterInUse {
+	background-color: #DDF;
+	box-shadow: 0 0 .5em .25em #FFF inset;
+}*/
+div.filters div.filterInUse label {
+	color:black;
+}
+div.filters div.filterInUse input,div.filters div.filterInUse select,div.filters div.filterInUse div.chosen-container ul {
+	border:1px solid black;
+	box-shadow: 0 0 4px blue;
+}
+
+#FiltersActiveContainer {
+	position: fixed;
+	z-index: 12;
+	right: 0.5em;
+	overflow:visible;
+}
+
+#FiltersActive {
+	border: 1px solid silver;
+	border-top: none;
+	padding: 0px 0.5em 0.5em;
+	border-radius: 0px 0px 0.5em 0.5em;
+	
+	color: black;
+	font-size: 75%;
+	font-weight: bold;
+	text-align: center;
+
+	background-image: -moz-linear-gradient(top, #FFF, #BBB);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFF), color-stop(1, #BBB));
+	background-image: -webkit-linear-gradient(top, #FFF 0%, #BBB 100%);
+	background: linear-gradient(top, #FFF, #BBB);
+
+    box-shadow: 0px 0.4em 0.5em -0.2em black;
+	
+	cursor: pointer;
+	cursor: hand;
+	display:none;
+}
+
+div.chosen-container,select.chosen-select {
+    margin-right: .5em;
+}
+select.chosen-select,div.filters input {
+	border: 1px solid #AAA; /* Align with chosen styling */
+}
+div.filters input  {
+	padding: .5em;
+	width: 10.5em;
+}
+
+div#tabGroup{
+	position:fixed;
+	top:-1024em;
+	/* display:none;  IE does not process hidden input elements */
+}
+
+div.tile {
+	display: inline-block;
+	position: relative;
+	border-left: 1px solid grey;
+	border-top: 1px solid grey;
+	border-right: 1px solid grey;
+	border-bottom: 1px solid grey;
+	/* border-radius: .5em; */
+	width: 14em;
+	height: auto/*7em*/;
+	min-height:3em;
+	margin:0 0 1em 1em;
+	padding:.5em;
+	overflow:hidden;
+	cursor:pointer;
+	text-decoration:none;
+	
+	box-shadow: .2em .2em .4em 0 #000;	
+	
+	background-color: #FFF;
+	
+	text-align:center;
+}
+
+div.tile p {font-size: 80%; margin:0; margin-top:.2em; text-align:left;}
+
+div.tile span.price {
+	display: block;
+	text-align: left;
+	margin-top: 1em;
+/*
+	position: absolute;
+	bottom: .5em;
+	left: .5em;
+	background-color: inherit;
+*/
+	font-size: 80%;
+
+	box-shadow: 0 0 .5em .5em #FFF;
+}
+
+div.tile p.detailsDescription {
+	display:none;
+}
+span.detailsLocationNote {
+	display:block;
+	font-size:90%;
+}
+div.tile span.detailsLocationNote {
+	display:none;
+}
+div.tile img {
+	width: 100%;
+	height: auto;
+}
+
+div.tile [id^="PriceList."] {
+	position: absolute;
+	bottom: .5em;
+	right: .5em;
+	border: 1px solid rgba(255,255,255,0);
+	font-weight: bold;
+	font-size: 80%;
+	background-color: inherit;
+	/*display: none;*/
+	
+	box-shadow: 0 0 .5em .5em #FFF;
+}
+/*
+div.tile:hover [id^="PriceList."] {
+	display: block;
+}
+*/
+div.tile span.soldOut {
+	font-weight: bold;
+	/*font-size: 80%;*/
+	color:red;
+	position: absolute;
+	bottom: .3em;
+	right: .6em;
+	background-color: inherit;
+	
+	box-shadow: 0 0 .5em .5em #FFF;
+}
+span.Ref {
+	color:grey;
+	float:left;
+}
+
+#dialogueShade {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-image: url(/Templates/TabForm/25grey.png);
+	background-color: rgba(0,0,0,.25);
+	/* -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=25)"; */
+	/* filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4cFF0000,endColorstr=#4cFF0000); */
+	/* filter: alpha(opacity=25); */
+	z-index: 100;
+}
+
+#dialogueFrame {
+	position: relative;
+	top: 10%;
+	/* left: 50%; */
+	max-height: 80%;
+	overflow-y: auto;
+
+	max-width: 435px;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	/* -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; */
+	/* -filter: alpha(opacity=100); */
+	background: white;
+	z-index: 200;
+	text-align: center;
+	box-shadow: .2em .2em 1em .2em #000;
+	
+	padding: .5em 1em;
+}
+#dialogueFrame p {
+	text-align: left;
+}
+#dialogueFrame img {
+	max-width: 100%;
+}
+#dialogueFrame .soldOut{
+	color:red;
+	font-weight:bold;
+}
+#navigator-descr-header {
+	padding-right: 1.5em;
+	min-height:2em;
+}
+
+#dialogueOK {
+	margin-left: 1em;
+}
+
+#dialogueClose {
+	position: absolute;
+	padding: 1em 1em;
+	right: 0;
+	top: 0;
+	border-left: 1px solid silver;
+	border-bottom: 1px solid silver;
+	color: silver;
+	cursor: pointer;
+	background-color: #FFF;
+	background-image: url(/Templates/TabForm/cross.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#dialogueClose:hover {
+	border-left: 1px solid red;
+	border-bottom: 1px solid red;
+	background-color: #FEE;
+	text-decoration: none;
+	color: red;
+}
+
+
+
+div.spacer {
+	height:1em;
+}
+div.section {
+	position: relative;
+	display: block;
+	padding: 0;
+	margin: 1em;
+	background-color: #FFF;
+	
+	border-bottom: 1px solid #888;
+	border-right: 1px solid #888;
+
+	box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.7);
+}
+
+div.section h1 {
+	margin: 0;
+	padding: .25em 1em;
+	background-color: #AFAFFF;
+	color: #224;
+	font-size: 120%;
+}
+
+div.section a.switchRW {
+	position: absolute;
+	top: .5em;
+	right: 1em;
+	color: #224;
+	font-weight: bold;
+	text-decoration: none;
+}
+div.section a.switchRW:before {content:"+ ";}
+div.section.edit a.switchRW:before {content:"\2013  ";}
+
+div.section div {
+	position: relative;
+}
+div.section>div {
+	display: block;
+}
+div.section>table {
+	display: block;
+	margin: 1em;
+}
+
+div.section div.submit {
+	margin: 0;
+	text-align: center;
+	display:none;
+}
+
+div.section table {
+	border:none;
+	margin:0;
+	padding:0;
+	width:auto;
+}
+
+div.section table td {
+	padding: .2em;
+	position: relative;
+}
+div.section table td.header {
+	text-align:right;
+	padding: .2em 1em 0 1em;
+	font-size: 100%;
+	font-weight: bold;
+	vertical-align: top;
+	min-width: 10em;
+}
+div.section table td.analysis {
+	text-align:right;
+}
+div.section div.field {display: inline-block; padding-right: .5em;}
+div.section div.field>input {display: none; font-weight: bold; border: 1px solid grey; padding: .2em 0 .1em .3em; font-size: 100%;}
+div.section div.field>label {display: none; font-size: 80%; font-weight: bold; color: grey; padding: .5em 0 .1em .5em; margin-bottom: -0.2em;}
+div.section.edit table td.header {padding-top: 1.6em;}
+div.section.edit table td.hintSpacer {min-width: 8em;}
+div.section.edit div.field>input {display: block;}
+div.section.edit div.field>label {display: block;}
+div.section.edit div.submit {display: block;}
+div.section.edit span {display: none;}
+
+div.section.edit div.analysis span.checkBoxHint {position: absolute; font-size:80%; font-weight:bold;}
+div.section.edit div.analysis span.unchecked {color:#B00; display:inline-block;}
+div.section.edit div.analysis span.checked {color:#080; display:none;}
+div.section.edit div.analysis>input[type="checkbox"]:checked ~ span.checked {display:inline-block;}
+div.section.edit div.analysis>input[type="checkbox"]:checked ~ span.unchecked {display:none;}
+
+div.section.ReadOnly input {display:none;}
+
+div.section table td.header img {
+	height: 128px;
+	width: 128px;
+	border:none;
+}
+
+div.section table td.header div.hint {
+	display: none;
+	position: absolute;
+	width: 30em;
+	top: 0;
+	left: 100%;
+	background: white;
+	border: 1px solid #888;
+	box-shadow: 2px 2px 6px 1px rgba(0,0,0,1);
+	padding: 1em 1em .25em 1em;
+	z-index: 1000;
+	text-align:left;
+}
+div.section table td.header div.footnote {
+	display:block;
+	font-size: 75%;
+	font-weight: normal;
+	color: #888;
+	margin-top: 1em;
+	text-align: center;
+}
+div.section table td.header a {
+	margin-left: 1em;
+	font-size:85%;
+}
+div.section table td.header:hover div.hint {display:block;}
+div.section table td.header div.hint:hover {display:block;}
+/* div.group img:hover ~ div.hint {display:block;} */
+
+div.section div.submit div.notification {position: absolute; margin-top: -.5em; font-size: 200%; display:none; opacity:0;}
+div.section div.submit div.ok {color: green;}
+div.section div.submit div.fail {color: red;}
+
+div.section div.submit div.fade {
+	display:inline-block;
+        animation-name:fade;         animation-duration:3s;         animation-iteration-count:1;         animation-direction:linear;
+-webkit-animation-name:fade; -webkit-animation-duration:3s; -webkit-animation-iteration-count:1; -webkit-animation-direction:linear;
+   -moz-animation-name:fade;    -moz-animation-duration:3s;    -moz-animation-iteration-count:1;    -moz-animation-direction:linear;
+     -o-animation-name:fade;      -o-animation-duration:3s;      -o-animation-iteration-count:1;      -o-animation-direction:linear;
+}
+@keyframes fade         {000% {opacity:100;} 010% {opacity:100;} 100%  {opacity:0;}}
+@-webkit-keyframes fade {000% {opacity:100;} 010% {opacity:100;} 100%  {opacity:0;}}
+@-moz-keyframes fade    {000% {opacity:100;} 010% {opacity:100;} 100%  {opacity:0;}}
+@-o-keyframes fade      {000% {opacity:100;} 010% {opacity:100;} 100%  {opacity:0;}}
+
+div#NotingMatch {
+	margin-left:1em;
+}
+
+
+/* Hide controls from non-js browsers */
+/* div.tabs {display:none;} */
+/* div.footer {display:none;} */
+
+
+/* Per-Tab special properties
+div.tile.tab2 {
+	height: 14em;
+}
+*/
+
+/* center usual text */
+form>div.tabbed:not(.tile) {
+	max-width: 80em;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left:1em;
+	padding-right:1em;
+}
+/*
+.chosen-container * {
+	touch-action: none;
+}
+*/
+
+p small {
+	font-size: 75%;
+	color: #888;
+}
+
+p label.filterLabel {
+	white-space:nowrap;
+}
+
+p.tabbed.intro,div.tabbed.intro {
+	padding: 0 1em;
+	line-height: 2em;
+}
+
+#SubmitTile {
+    padding: 1em;
+	text-align:right;
+}
+
+#SubmitTile input {
+	font-size:150%;
+	padding: .5em 1em;
+}
+
+/* Media Queries */
+
+.landscape,.portrait {display:none!important;}
+@media screen and (max-width:40rem) /* (orientation:portrait) (max-device-aspect-ratio:1/1)*/ {
+	.portrait {display:block!important;}
+	div.filters label {font-weight:bold;font-size:75%;color:grey;}
+	div.filters>div {display: inline-block; margin-top:.5em;}
+	#filtersPanel>div {border-right: none; display:inline-block; padding-right:0;}
+
+	select.chosen-select {
+		width: 7em; /* Align with chosen in JS */
+	}
+}
+@media screen and (min-width:40rem) /* (orientation:landscape) (min-device-aspect-ratio:1/1)*/ {
+	.landscape {display:block!important;}
+	#centerPanel {margin-left:auto;}
+	#filtersPanel {position:fixed; height:100%; max-width:15em;}
+	#filtersPanel>div {border-right: 1px solid silver; display:block;}
+	select.chosen-select {
+		width: 11.5em; /* Align with chosen in JS */
+	}
+}
+@media screen and (max-width:30rem) { /* Hide images on screens narrower then 30rem */
+    .tile img {display:none;}
+}
+@media screen and (max-height:30rem) { /* Hide images on screens lower then 30rem */
+    .tile img {display:none;}
+}
+@media screen and (max-height:15rem) { /* Shrink logo on screens lower then 15rem */
+	div.header img {max-height:2em;}
+	label.topBasket img {max-height:1.5em; display:inline-block;}
+	label.topBasket span {float:right;}
+}
+
